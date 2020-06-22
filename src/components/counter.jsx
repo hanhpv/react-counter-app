@@ -1,0 +1,81 @@
+import React, { Component } from "react";
+
+class Counter extends Component {
+    // any data the component needs
+    state = {
+        value: 0,
+        // value: this.props.value,
+        // imageUrl: "https://picsum.photos/200", // random 200px image
+        imageUrl: "part1.png",
+        tags: ["tag1", "tag2", "tag3"],
+    };
+
+    // inline styles needs to passed in object
+    styles = {
+        fontSize: 10,
+        fontWeight: "bold",
+    };
+
+    // the method gets called when an object of this class is initiated
+    // constructor() {
+    //     // this is available in the function
+    //     super();
+    //     // bind this obj in to handleIncrement method
+    //     this.handleIncrement = this.handleIncrement.bind(this);
+    // }
+
+    renderTags() {
+        if (this.state.tags.length === 0) return <p>There are no tags!</p>;
+
+        return (
+            <ul>
+                {this.state.tags.map((tag) => (
+                    <li key={tag}>{tag}</li>
+                ))}
+            </ul>
+        );
+    }
+
+    // arrow function don't rebind the this keyword
+    handleIncrement = (product) => {
+        this.setState({ value: this.state.value + 1 });
+    };
+
+    render() {
+        return (
+            <div>
+                <span className={this.getBadgeClasses()}>
+                    {this.formatCount()}
+                </span>
+                <button
+                    onClick={() => this.handleIncrement()}
+                    className="btn btn-secondary btn-sm"
+                >
+                    Increment
+                </button>
+                <div style={{ display: "none" }}>
+                    <img src={this.state.imageUrl} />
+                    {this.state.tags.length === 0 && (
+                        <p>Please create a new tag!</p>
+                    )}
+                    {this.renderTags()}
+                </div>
+            </div>
+        );
+    }
+
+    getBadgeClasses() {
+        let classes = "badge m-2 badge-";
+        classes += this.state.value === 0 ? "warning" : "primary";
+        return classes;
+    }
+
+    formatCount() {
+        const { value } = this.state;
+        // JSX express is converted to React element, so it can be returned in the function, can be use as function argument,...
+        // return count === 0 ? <h1>Zero</h1> : count;
+        return value === 0 ? "Zero" : value;
+    }
+}
+
+export default Counter;
