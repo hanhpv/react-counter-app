@@ -3,8 +3,9 @@ import Counter from "./counter";
 
 class Counters extends Component {
     render() {
-        const { onReset, counters, onIncrement, onDelete } = this.props;
+        console.log("  Counters - Rendered");
 
+        const { onReset, counters, onIncrement, onDelete } = this.props;
         return (
             <React.Fragment>
                 <button
