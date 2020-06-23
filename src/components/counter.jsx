@@ -10,6 +10,15 @@ class Counter extends Component {
         tags: ["tag1", "tag2", "tag3"],
     };
 
+    // happens whenever the props or state of a component changes
+    componentDidUpdate(prevProps, prevState) {
+        console.log("prevProps", prevProps);
+        console.log("prevState", prevState);
+        if (prevProps.counter.value != this.props.counter.value) {
+            // Ajax call and get new data from the server
+        }
+    }
+
     // inline styles needs to passed in object
     styles = {
         fontSize: 10,
