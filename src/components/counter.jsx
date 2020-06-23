@@ -3,8 +3,8 @@ import React, { Component } from "react";
 class Counter extends Component {
     // any data the component needs
     state = {
-        value: 0,
-        // value: this.props.value,
+        // value: 0,
+        // value: this.props.counter.value,
         // imageUrl: "https://picsum.photos/200", // random 200px image
         imageUrl: "part1.png",
         tags: ["tag1", "tag2", "tag3"],
@@ -37,9 +37,9 @@ class Counter extends Component {
     }
 
     // arrow function don't rebind the this keyword
-    handleIncrement = (product) => {
-        this.setState({ value: this.state.value + 1 });
-    };
+    // handleIncrement = () => {
+    //     this.setState({ value: this.state.value + 1 });
+    // };
 
     render() {
         return (
@@ -48,10 +48,16 @@ class Counter extends Component {
                     {this.formatCount()}
                 </span>
                 <button
-                    onClick={() => this.handleIncrement()}
+                    onClick={() => this.props.onIncrement(this.props.counter)}
                     className="btn btn-secondary btn-sm"
                 >
                     Increment
+                </button>
+                <button
+                    onClick={() => this.props.onDelete(this.props.counter.id)}
+                    className="btn btn-danger btn-sm m-2"
+                >
+                    Delete
                 </button>
                 <div style={{ display: "none" }}>
                     <img src={this.state.imageUrl} />
@@ -66,12 +72,12 @@ class Counter extends Component {
 
     getBadgeClasses() {
         let classes = "badge m-2 badge-";
-        classes += this.state.value === 0 ? "warning" : "primary";
+        classes += this.props.counter.value === 0 ? "warning" : "primary";
         return classes;
     }
 
     formatCount() {
-        const { value } = this.state;
+        const { value } = this.props.counter;
         // JSX express is converted to React element, so it can be returned in the function, can be use as function argument,...
         // return count === 0 ? <h1>Zero</h1> : count;
         return value === 0 ? "Zero" : value;
